@@ -8,6 +8,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
  * <p>
  * Use the Ex2TweetMiningTest to implement the code.
  */
-public class Ex2TweetMining {
+public class Ex2TweetMining implements Serializable {
 
     private static String pathToFile = "data/reduced-tweets.json";
 
@@ -89,7 +90,12 @@ public class Ex2TweetMining {
 
         // Hint: take a look at the sorting and take methods
         // TODO write code here
-        List<Tuple2<Integer, String>> mostMentioned = null;
+        List<Tuple2<Integer, String>> mostMentioned =
+                counts.mapToPair(
+                        stringIntegerTuple2
+                                ->
+                                new Tuple2<>(stringIntegerTuple2._2, stringIntegerTuple2._1)
+                ).sortByKey(false).take(10);
 
         return mostMentioned;
     }
