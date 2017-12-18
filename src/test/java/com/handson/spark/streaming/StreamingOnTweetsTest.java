@@ -6,29 +6,30 @@ import org.junit.Test;
 
 public class StreamingOnTweetsTest {
 
-  private StreamingOnTweets streaming;
-  @Before
-  public void init() {
-    streaming = new StreamingOnTweets();
-  }
+    private StreamingOnTweets streaming;
 
-  @Test
-  public void printTweet() {
-    // run
-    streaming.tweetPrint();
+    @Before
+    public void init() {
+        streaming = new StreamingOnTweets();
+    }
 
-    // assert
-    // You must see some tweets in the console
-  }
+    @Test
+    public void printTweet() {
+        // run
+        streaming.tweetPrint();
 
-  @Test
-  public void top10Hashtag() {
-    // run
-    String result = streaming.top10Hashtag();
+        // assert
+        // You must see some tweets in the console
+    }
 
-    // assert
-    System.out.println(result);
-    // You should see something like that:
-    // Most popular hashtag :[(1,#tlot), (1,#followme), (1,#teamfollowback)...]
-  }
+    @Test
+    public void top10Hashtag() {
+        // run
+        String result = streaming.top10Hashtag();
+
+        // assert
+        System.out.println(result);
+        // You should see something like that:
+        // Most popular hashtag :[(1,#tlot), (1,#followme), (1,#teamfollowback)...]
+    }
 }

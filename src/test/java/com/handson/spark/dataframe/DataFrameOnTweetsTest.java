@@ -9,72 +9,72 @@ import org.junit.Test;
 
 public class DataFrameOnTweetsTest {
 
-  private DataFrameOnTweets dataFrame;
+    private DataFrameOnTweets dataFrame;
 
-  @Before
-  public void init() {
-    dataFrame = new DataFrameOnTweets();
-  }
+    @Before
+    public void init() {
+        dataFrame = new DataFrameOnTweets();
+    }
 
 
-  @Test
-  public void loadData() {
-    // run
-    DataFrame result = dataFrame.loadData();
+    @Test
+    public void loadData() {
+        // run
+        DataFrame result = dataFrame.loadData();
 
-    // assert
-    Assert.assertEquals(8198, result.toJavaRDD().count());
-  }
+        // assert
+        Assert.assertEquals(8198, result.toJavaRDD().count());
+    }
 
-  @Test
-  public void showDataFrame() {
-    // run
-    dataFrame.showDataFrame();
+    @Test
+    public void showDataFrame() {
+        // run
+        dataFrame.showDataFrame();
 
-    // assert
-    // you must see something like that in your console:
-    //+--------------------+------------------+-----------------+--------------------+-------------------+
-    //|             country|                id|            place|                text|               user|
-    //+--------------------+------------------+-----------------+--------------------+-------------------+
-    //|               India|572692378957430785|           Orissa|@always_nidhi @Yo...|    Srkian_nishu :)|
-    //|       United States|572575240615796737|        Manhattan|@OnlyDancers Bell...| TagineDiningGlobal|
-    //|       United States|572575243883036672|        Claremont|1/ "Without the a...|        Daniel Beer|
-  }
+        // assert
+        // you must see something like that in your console:
+        //+--------------------+------------------+-----------------+--------------------+-------------------+
+        //|             country|                id|            place|                text|               user|
+        //+--------------------+------------------+-----------------+--------------------+-------------------+
+        //|               India|572692378957430785|           Orissa|@always_nidhi @Yo...|    Srkian_nishu :)|
+        //|       United States|572575240615796737|        Manhattan|@OnlyDancers Bell...| TagineDiningGlobal|
+        //|       United States|572575243883036672|        Claremont|1/ "Without the a...|        Daniel Beer|
+    }
 
-  @Test
-  public void printSchema() {
-    // run
-    dataFrame.printSchema();
+    @Test
+    public void printSchema() {
+        // run
+        dataFrame.printSchema();
 
-    // assert
-    // you must see something like that in your console:
-    // root
-    //    |-- country: string (nullable = true)
-    //    |-- id: string (nullable = true)
-    //    |-- place: string (nullable = true)
-    //    |-- text:string(nullable = true)
-    //    |-- user: string (nullable = true)
-  }
+        // assert
+        // you must see something like that in your console:
+        // root
+        //    |-- country: string (nullable = true)
+        //    |-- id: string (nullable = true)
+        //    |-- place: string (nullable = true)
+        //    |-- text:string(nullable = true)
+        //    |-- user: string (nullable = true)
+    }
 
-  @Test
-  public void filterByLocation() {
-    // run
-    DataFrame result = dataFrame.filterByLocation();
+    @Test
+    public void filterByLocation() {
+        // run
+        DataFrame result = dataFrame.filterByLocation();
 
-    // assert
-    Assert.assertEquals(329, result.count());
+        // assert
+        Assert.assertEquals(329, result.count());
 
-  }
+    }
 
-  @Test
-  public void mostPopularTwitterer() {
-    // run
-    Row result = dataFrame.mostPopularTwitterer();
+    @Test
+    public void mostPopularTwitterer() {
+        // run
+        Row result = dataFrame.mostPopularTwitterer();
 
-    // assert
-    Assert.assertEquals("#QuissyUpSoon", result.get(0));
-    Assert.assertEquals(258L, result.get(1));
+        // assert
+        Assert.assertEquals("#QuissyUpSoon", result.get(0));
+        Assert.assertEquals(258L, result.get(1));
 
-  }
+    }
 
 }

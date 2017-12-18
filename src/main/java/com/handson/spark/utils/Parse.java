@@ -6,17 +6,17 @@ import java.io.IOException;
 
 public class Parse {
 
-  public static Tweet parseJsonToTweet(String jsonLine) {
+    public static Tweet parseJsonToTweet(String jsonLine) {
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    Tweet tweet = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        Tweet tweet = null;
 
-    try {
-      tweet = objectMapper.readValue(jsonLine, Tweet.class);
-    } catch (IOException e) {
-      e.printStackTrace();
+        try {
+            tweet = objectMapper.readValue(jsonLine, Tweet.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tweet;
     }
-    return tweet;
-  }
 
 }

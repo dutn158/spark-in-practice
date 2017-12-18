@@ -8,38 +8,38 @@ import org.junit.*;
 
 public class Ex0WordcountTest {
 
-  private Ex0Wordcount ex0Wordcount;
+    private Ex0Wordcount ex0Wordcount;
 
-  @Before
-  public void init() {
-    ex0Wordcount = new Ex0Wordcount();
-  }
+    @Before
+    public void init() {
+        ex0Wordcount = new Ex0Wordcount();
+    }
 
-  @Test
-  public void loadData() {
-    // run
-    JavaRDD<String> words = ex0Wordcount.loadData();
+    @Test
+    public void loadData() {
+        // run
+        JavaRDD<String> words = ex0Wordcount.loadData();
 
-    // assert
-    // this test is already green but see how we download the data in the loadData method
-    Assert.assertEquals(809, words.count());
-  }
+        // assert
+        // this test is already green but see how we download the data in the loadData method
+        Assert.assertEquals(809, words.count());
+    }
 
-  @Test
-  public void wordcount() {
-    // run
-    JavaPairRDD<String, Integer> couples = ex0Wordcount.wordcount();
+    @Test
+    public void wordcount() {
+        // run
+        JavaPairRDD<String, Integer> couples = ex0Wordcount.wordcount();
 
-    // assert
-    Assert.assertEquals(381, couples.count());
-  }
+        // assert
+        Assert.assertEquals(381, couples.count());
+    }
 
-  @Test
-  public void filterOnWordcount() {
-    // run
-    JavaPairRDD<String, Integer> filtered = ex0Wordcount.filterOnWordcount();
+    @Test
+    public void filterOnWordcount() {
+        // run
+        JavaPairRDD<String, Integer> filtered = ex0Wordcount.filterOnWordcount();
 
-    // assert
-    Assert.assertEquals(26, filtered.count());
-  }
+        // assert
+        Assert.assertEquals(26, filtered.count());
+    }
 }
