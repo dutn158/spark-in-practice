@@ -8,6 +8,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,7 +60,8 @@ public class Ex3HashtagMining {
         // You want to return an RDD with the mentions
         // Hint: think about separating the word in the text field and then find the mentions
         // TODO write code here
-        JavaRDD<String> mentions = null;
+        JavaRDD<String> mentions = tweets.flatMap(tweet -> Arrays.asList(tweet.getText().split(" ")))
+                .filter(s -> s.startsWith("#") && s.length() > 1);
 
         return mentions;
     }
@@ -72,7 +74,8 @@ public class Ex3HashtagMining {
 
         // Hint: think about what you did in the wordcount example
         // TODO write code here
-        JavaPairRDD<String, Integer> counts = null;
+        JavaPairRDD<String, Integer> counts = mentions.mapToPair(s -> new Tuple2<>(s, 1))
+                .reduceByKey((integer, integer2) -> integer + integer2);
 
         return counts;
     }
@@ -85,7 +88,9 @@ public class Ex3HashtagMining {
 
         // Hint: take a look at the sorting and take methods
         // TODO write code here
-        List<Tuple2<Integer, String>> top10 = null;
+        List<Tuple2<Integer, String>> top10 = counts.mapToPair(stringIntegerTuple2 ->
+            new Tuple2<Integer, String>(stringIntegerTuple2._2, stringIntegerTuple2._1)
+        ).sortByKey(false).take(10);
 
         return top10;
     }
