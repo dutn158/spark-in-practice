@@ -1,7 +1,10 @@
 package com.handson.spark.streaming;
 
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.function.VoidFunction2;
 import org.apache.spark.streaming.Durations;
+import org.apache.spark.streaming.Time;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
@@ -100,17 +103,20 @@ public class StreamingOnTweets {
                 .reduceByKey((integer, integer2) -> integer + integer2)
                 .mapToPair(stringIntegerTuple2 -> new Tuple2<>(stringIntegerTuple2._2, stringIntegerTuple2._1));
 
-
         // Then sort the hashtags
         // Hint: look at the transformToPair method
         // TODO write code here
-        JavaPairDStream<Integer, String> sortedHashtag = null;
+        JavaPairDStream<Integer, String> sortedHashtag = hashtagMention.transformToPair(
+                (integerStringJavaPairRDD, time) -> integerStringJavaPairRDD.sortByKey(false)
+        );
 
         // and return the 10 most populars
         // Hint: loop on the RDD and take the 10 most popular
         // TODO write code here
         List<Tuple2<Integer, String>> mostPopulars = new ArrayList<>();
-//        mostPopulars.addAll(sortedHashtag.)
+        sortedHashtag.foreachRDD(
+                (VoidFunction2<JavaPairRDD<Integer, String>, Time>) (integerStringJavaPairRDD, time) -> mostPopulars.addAll(integerStringJavaPairRDD.collect())
+        );
 
         // we need to tell the context to start running the computation we have setup
         // it won't work if you don't add this!
