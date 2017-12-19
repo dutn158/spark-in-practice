@@ -7,6 +7,8 @@ import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
 
+import static org.apache.spark.sql.functions.col;
+
 /**
  * The Spark SQL and DataFrame documentation is available on:
  * https://spark.apache.org/docs/1.4.0/sql-programming-guide.html
@@ -59,12 +61,12 @@ public class DataFrameOnTweets {
         // Create a sql context: the SQLContext wraps the SparkContext, and is specific to Spark SQL.
         // It is the entry point in Spark SQL.
         // TODO write code here
-        SQLContext sqlContext = null;
+        SQLContext sqlContext = new SQLContext(sc);
 
         // load the data as dataframe from the json file
         // Hint: use the sqlContext and apply the read method before loading the json file
         // TODO write code here
-        DataFrame dataFrame = null;
+        DataFrame dataFrame = sqlContext.read().json("data/reduced-tweets.json");
 
         return dataFrame;
 
@@ -78,7 +80,7 @@ public class DataFrameOnTweets {
 
         // Displays the content of the DataFrame to stdout
         // TODO write code here
-
+        dataFrame.show();
     }
 
     /**
@@ -89,6 +91,7 @@ public class DataFrameOnTweets {
 
         // Print the schema
         // TODO write code here
+        dataFrame.printSchema();
     }
 
     /**
@@ -99,7 +102,7 @@ public class DataFrameOnTweets {
 
         // Find all the persons which are located in Paris
         // TODO write code here
-        DataFrame filtered = null;
+        DataFrame filtered = dataFrame.filter(col("country").isin("France"));
 
         return filtered;
 

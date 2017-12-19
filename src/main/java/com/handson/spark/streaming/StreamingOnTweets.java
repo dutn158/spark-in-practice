@@ -10,6 +10,7 @@ import scala.Tuple2;
 import twitter4j.Status;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,7 +73,9 @@ public class StreamingOnTweets {
         // Here print the status text
         // TODO write code here
         // Hint: use the print method
-        JavaDStream<String> statusText = null;
+        JavaDStream<String> statusText = tweetsStream.flatMap(status -> Arrays.asList(status.getText()));
+
+        statusText.print();
 
         // Start the context
         jssc.start();

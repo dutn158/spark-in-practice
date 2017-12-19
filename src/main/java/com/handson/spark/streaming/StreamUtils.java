@@ -20,10 +20,10 @@ import twitter4j.conf.ConfigurationBuilder;
 public class StreamUtils {
 
     // TODO fill the keys and tokens
-    private static String CONSUMER_KEY = "";
-    private static String CONSUMER_SECRET = "";
-    private static String ACCESS_TOKEN = "";
-    private static String ACCESS_TOKEN_SECRET = "";
+    private static String CONSUMER_KEY = "fRAi3GYyAiKVwKzh3Ko7yrXrM";
+    private static String CONSUMER_SECRET = "pt0iGCxOpDPHZpgn54fkFtuxNvRrvSVE6Vby4cPnv45AX3wbR3";
+    private static String ACCESS_TOKEN = "2613792114-rY5MfsQDEB7IxcNGYOwelZ33pXwNPkBHpuE7qFE";
+    private static String ACCESS_TOKEN_SECRET = "5fqJdujpfihsBIvB4W9z8QJmOqH9AUVKb4zvLQ7sisiee";
 
     public static OAuthAuthorization getAuth() {
 
