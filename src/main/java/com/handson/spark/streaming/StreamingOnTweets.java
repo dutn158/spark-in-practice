@@ -90,12 +90,15 @@ public class StreamingOnTweets {
 
         // First, find all hashtags
         // TODO write code here
-        JavaDStream<String> hashtags = null;
+        JavaDStream<String> hashtags = tweetsStream.flatMap(status -> Arrays.asList(status.getText().split(" ")))
+                .filter(s -> s.length() > 1 && s.startsWith("#"));
 
         // Make a "wordcount" on hashtag
         // Hint: define a 1 second window (millisecond) for the reduce step.
         // TODO write code here
-        JavaPairDStream<Integer, String> hashtagMention = null;
+        JavaPairDStream<Integer, String> hashtagMention = hashtags.mapToPair(s -> new Tuple2<>(s, 1))
+                .reduceByKey((integer, integer2) -> integer + integer2)
+                .mapToPair(stringIntegerTuple2 -> new Tuple2<>(stringIntegerTuple2._2, stringIntegerTuple2._1));
 
 
         // Then sort the hashtags
@@ -107,6 +110,7 @@ public class StreamingOnTweets {
         // Hint: loop on the RDD and take the 10 most popular
         // TODO write code here
         List<Tuple2<Integer, String>> mostPopulars = new ArrayList<>();
+//        mostPopulars.addAll(sortedHashtag.)
 
         // we need to tell the context to start running the computation we have setup
         // it won't work if you don't add this!
